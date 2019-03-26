@@ -182,6 +182,7 @@ function allvalidate()
     var Conpassword = ConformPasswordValidation();
     if (Fname && LName && Email && Mobile && Password && Conpassword) {
 
+<<<<<<< HEAD
     //  var file = $("#SelectImage").get(0).files;
    // //var data = new FormData;
 //     data.append("postedFile", file[0]);
@@ -191,6 +192,14 @@ function allvalidate()
   //  User.Email = $("#email").val();
   //  User.Mobile = $("#mobile").val();
   //  User.Password = $("#password").val();
+=======
+       
+        User.FirstName = $("#firstname").val();
+        User.LastName = $("#lastname").val();
+        User.Email = $("#email").val();
+        User.Mobile = $("#mobile").val();
+        User.Password = $("#password").val();
+>>>>>>> d6480a83ec64e5e645cacca771a042f600696335
        alert("Validation success");
 
         RegistrationData();
@@ -203,6 +212,7 @@ function allvalidate()
 
 var RegistrationData = function ()
 {
+<<<<<<< HEAD
     //for image
    // var file = $("#SelectImage").get(0).files;
   //  var data = new FormData;
@@ -231,6 +241,17 @@ var RegistrationData = function ()
         success: function (result) {
             //alert(result);
            
+=======
+    var data = User;
+    //var data = $("#Registration").serialize();
+    $.ajax({
+        type: "post",
+        url: "/Register/AddUser",
+        data: data,
+        success: function (result) {
+            //alert(result);
+
+>>>>>>> d6480a83ec64e5e645cacca771a042f600696335
             if (result == "User Details Inserted Successfully!") {
                 $("#Registration")[0].reset();
                 //window.location.href = "/Login/Index";
@@ -258,4 +279,7 @@ var RegistrationData = function ()
     return false;*/
     });
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> d6480a83ec64e5e645cacca771a042f600696335

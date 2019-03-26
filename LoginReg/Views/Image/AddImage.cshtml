@@ -5,6 +5,7 @@
 }
 
 <h2>View</h2>
+<<<<<<< HEAD
 <br /><br />
 
       <div class="form-group">
@@ -44,3 +45,35 @@
     }
 
 </script>
+=======
+
+@using (Html.BeginForm("AddImage", "Image", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+       
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Avatar, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="postedFile" id="postedFile" />
+                <span class="field-validation-valid" data-valmsg-for="postedFile" data-valmsg-replace="true"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+>>>>>>> d6480a83ec64e5e645cacca771a042f600696335

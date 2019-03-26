@@ -82,6 +82,7 @@ var LoginData= function () {
         data: data,
         success: function (result)
         {
+<<<<<<< HEAD
            
             if (result == "Admin") {
                 window.location.href = "/Login/Admin";
@@ -99,6 +100,16 @@ var LoginData= function () {
                 $("#msg").show();
             }
             
+=======
+            if (result == "Fail") {
+                $("#loginForm")[0].reset();
+                $("#msg").show();
+            }
+            else {
+                window.location.href = "/Login/Welcome";
+                $("#msg").hide();
+            }
+>>>>>>> d6480a83ec64e5e645cacca771a042f600696335
         }
     });
 };
