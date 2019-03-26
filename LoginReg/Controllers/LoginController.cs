@@ -18,14 +18,15 @@ namespace LoginReg.Controllers
 
         public ActionResult CheckValidUser(User detail)
         {
-            string result = "Fail";
-            var DataItem = db.Users.Where(x => x.Email == model.Email && x.Password == model.Password).SingleOrDefault();
-            if (DataItem != null)
-            {
-                Session["Email"] = DataItem.Email.ToString();
-                Session["Password"] = DataItem.Password.ToString();
-                result = "Success";
-            }
+
+            string result;
+            
+            result = bussinessobj.LoginUser(detail);
+
+            Session["Email"] = detail.Email.ToString();
+            Session["Password"] = detail.Password.ToString();
+
+           
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
