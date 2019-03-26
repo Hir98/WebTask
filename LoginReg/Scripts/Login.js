@@ -82,14 +82,23 @@ var LoginData= function () {
         data: data,
         success: function (result)
         {
-            if (result == "Fail") {
+           
+            if (result == "Admin") {
+                window.location.href = "/Login/Admin";
+                //alert("You Are admin ");
+               
+            }
+            else if (result=="User")
+                {
+                window.location.href = "/Login/User"; alert("You Are User ");
+                $("#msg").hide();
+            }
+            else if (result == "Fail")
+            {
                 $("#loginForm")[0].reset();
                 $("#msg").show();
             }
-            else {
-                window.location.href = "/Login/Welcome";
-                $("#msg").hide();
-            }
+            
         }
     });
 };

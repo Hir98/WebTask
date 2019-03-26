@@ -7,7 +7,7 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-
+<script src="~/Scripts/Login.js"></script>
 
 <div class="container" style="margin-top:10%">
 
@@ -22,15 +22,17 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input class="form-control" type="email" name="Email" id="logemail" placeholder="Email" />
+                        <input class="form-control" type="email" name="Email" id="logemail" onblur="validateEmail()" placeholder="Email" />
                     </div>
+                    <span id="emailerror" style="visibility:hidden"></span>
                 </div>
 
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input class="form-control" type="password" name="Password" id="logpassword" placeholder="Password" />
+                        <input class="form-control" type="password" name="Password" id="logpassword" onblur="ValidatePassword()" placeholder="Password" />
                     </div>
+                    <span id="pwderror" style="visibility:hidden"></span>
                 </div>
             </form>
 
@@ -53,13 +55,15 @@
     //Login System
     $("#msg").hide();
 
-    var Login = function () {
+   /* var Login = function () 
+    * {
         var data = $("#loginForm").serialize();
         $.ajax({
             type: "post",
             url: "/Login/CheckValidUser",
             data: data,
-            success: function (result) {
+            success: function (result)
+            {
                 if (result == "Fail") {
                     $("#loginForm")[0].reset();
                     $("#msg").show();
@@ -70,7 +74,7 @@
                 }
             }
         })
-    }
+    }*/
 </script>
 
 

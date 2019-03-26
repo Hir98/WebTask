@@ -182,12 +182,15 @@ function allvalidate()
     var Conpassword = ConformPasswordValidation();
     if (Fname && LName && Email && Mobile && Password && Conpassword) {
 
-       
-        User.FirstName = $("#firstname").val();
-        User.LastName = $("#lastname").val();
-        User.Email = $("#email").val();
-        User.Mobile = $("#mobile").val();
-        User.Password = $("#password").val();
+    //  var file = $("#SelectImage").get(0).files;
+   // //var data = new FormData;
+//     data.append("postedFile", file[0]);
+   // User.Avatar = data;
+   // User.FirstName = $("#firstname").val();
+   // User.LastName = $("#lastname").val();
+  //  User.Email = $("#email").val();
+  //  User.Mobile = $("#mobile").val();
+  //  User.Password = $("#password").val();
        alert("Validation success");
 
         RegistrationData();
@@ -200,15 +203,34 @@ function allvalidate()
 
 var RegistrationData = function ()
 {
-    var data = User;
-    //var data = $("#Registration").serialize();
+    //for image
+   // var file = $("#SelectImage").get(0).files;
+  //  var data = new FormData;
+  //  data.append("postedFile", file[0]);
+
+    //for data
+    //var formdata = $("#Registration").serialize();
+
+    var formData = new FormData();
+    var file = $("#SelectImage").get(0).files;
+
+    formData.append("firstname", $("#firstname").val());
+    formData.append("lastname", $("#lastname").val());
+    formData.append("email", $("#email").val());
+    formData.append("mobile", $("#mobile").val());
+    formData.append("password", $("#password").val());  
+    formData.append("postedFile", file[0]);
+
+
     $.ajax({
         type: "post",
         url: "/Register/AddUser",
-        data: data,
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function (result) {
             //alert(result);
-
+           
             if (result == "User Details Inserted Successfully!") {
                 $("#Registration")[0].reset();
                 //window.location.href = "/Login/Index";
@@ -236,3 +258,4 @@ var RegistrationData = function ()
     return false;*/
     });
 };
+

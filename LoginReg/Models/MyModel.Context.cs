@@ -26,5 +26,6 @@ namespace LoginReg.Models
         }
     
         public virtual DbSet<User> Users { get; set; }
+        public object StoreImages { get; internal set; }
     }
 }

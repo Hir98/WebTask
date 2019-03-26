@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Admin";
+}
+
+<html>
+<head>
+        <meta name="viewport" />
+    <title>Show Data</title>
+</head>
+<body>
+    <div class="table-responsive">
+        <br/><br/><br/>
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+                
+                <tr>
+                    <th>UserId</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (System.Data.DataRow dr in ViewBag.User.Rows)
+                    {
+                <tr>
+                    <td>@dr["UserId"]</td>
+                    <td>@dr["FirstName"]</td>
+                    <td>@dr["Email"]</td>
+                    <td><a href="Edit">Edit  </a><a href="Delete">  Delete</a></td>
+                </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
+
+

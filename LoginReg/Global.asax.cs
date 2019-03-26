@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using LightInject;
 
 namespace LoginReg
 {
@@ -16,6 +18,11 @@ namespace LoginReg
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+          //  var container = new ServiceContainer();
+           // container.RegisterApiControllers();
+          //  container.Register<IBusinessLogic, BusinessLogic>();
+           // container.Register<IDb, Db>();
         }
     }
 }

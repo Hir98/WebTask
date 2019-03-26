@@ -29,6 +29,19 @@ namespace LoginReg
                url: "{controller}/{action}/{id}",
                defaults: new { controller = "Register", action = "Index", id = UrlParameter.Optional }
            );
+            routes.MapRoute(
+              name: "ImageUpload",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Image", action = "ImageUpload", id = UrlParameter.Optional }
+          );
+
+            routes.MapRoute(
+              name: "Image",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Image", action = "Index", id = UrlParameter.Optional }
+          );
+
+         
         }
     }
 }

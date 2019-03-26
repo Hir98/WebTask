@@ -1,117 +1,158 @@
-﻿
+﻿@model LoginReg.Models.User
+
 @{
     ViewBag.Title = "Index";
-     Layout = null;
+    Layout = null;
 }
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+<!DOCTYPE html>
 
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/RegJs.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>Index</title>
+</head>
+<body>
 
-<div class="container" style="margin-top:10%">
+    <div class="container" style="margin-top:10%">
 
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4 alert alert-info">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 alert alert-info">
 
-            <h3 class="text-center">Registration</h3>
+                <h3 class="text-center">Registration</h3>
 
+                <form id="Registration" enctype="multipart/form-data">
 
-            <form id="Registration">
+                    <div id="message1">
+                        <div class="alert alert-success">
 
-                <div id="message1">
-                    <div class="alert alert-success">
-                        <span class="glyphicon glyphicon-align-right"></span><strong>Your Registration Is Completed Succefully!!!</strong>
+                            <span id="message1" class="glyphicon glyphicon-align-right"><strong>Your Registration Is Completed Succefully!!!</strong></span>
+                        </div>
                     </div>
-                </div>
-                <div id="message2">
-                    <div class="alert alert-danger">
-                        <span class="glyphicon glyphicon-remove"></span><strong>Error Message! Your Registration Is Not Complete</strong>
+                    <div id="message2">
+                        <div class="alert alert-danger">
+                            <span class="glyphicon glyphicon-remove"><strong>Error Message! Your Registration Is Not Complete</strong></span>
+                        </div>
                     </div>
-                </div>
 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input class="form-control" type="text" onblur="validateFirstname()" name="Firstname" id="firstname" placeholder="FirstName" />
+                        </div>
+                        <span id="firstnameerror" style="visibility:hidden"></span>
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input class="form-control" type="text" onblur="validateLastname()" name="Lastname" id="lastname" placeholder="LastName" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        <span id="lastnameerror" style="visibility:hidden"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input class="form-control" type="email" onblur="validateEmail()" name="Email" id="email" placeholder="Email Id" />
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <span id="emailerror" style="visibility:hidden"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input class="form-control" type="tel" onblur="validateMobileno()" name="Mobile" id="mobile" placeholder="MobileNo" />
+                        </div>
+                        <span id="mobileerror" style="visibility:hidden"></span>
+                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input class="form-control" type="password" onblur="ValidatePassword()" name="Password" id="password" placeholder="Password" />
+                        </div>
+                        <span id="passworderror" style="visibility:hidden"></span>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input class="form-control" type="password" onblur="ConformPasswordValidation()" name="ConPassword" id="confirmpassword" placeholder="Confirm Password" />
+                        </div>
+                        <span id="confirmpassworderror" style="visibility:hidden"></span>
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="container">
+                        <div class="col-md-4">
+                            <input type="file" id="SelectImage" /><br />
+                            <!--  <a href="#" class="btn btn-sm btn-danger" onclick="UploadImage()">Upload</a>-->
+                        </div>
+
+                     <div class="col-md-4 thumbnail" id="UploadedImage"></div>
+                    </div>
+                    <hr />
+                </form>
 
                 <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input class="form-control" type="number" name="Userid" id="userid" placeholder="User Id" />
-                    </div>
+                    <button class="btn btn-info form-control" onclick="allvalidate()" id="btnregister" type="submit"><i class="glyphicon glyphicon-registration-mark"></i> Submit</button>
                 </div>
-
                 <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input class="form-control" type="text" name="Firstname" id="firstname" placeholder="FirstName" />
-                    </div>
+                    <!-- <a style="float:left">Forget Password ? </a><a style="float:right;cursor:pointer" onclick="SignUp()"> Sign Up</a>-->
+                    <p>Already Register?<a style="cursor:pointer" href="~/Login/Index">Login</a></p>
                 </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input class="form-control" type="text" name="Lastname" id="lastname" placeholder="LastName" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input class="form-control" type="email" name="Email" id="email" placeholder="Email Id" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                        <input class="form-control" type="tel" name="Mobile" id="Mobile" placeholder="MobileNo" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input class="form-control" type="password" name="Password" id="password" placeholder="Password" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input class="form-control" type="password" name="ConPassword" id="conpassword" placeholder="Confirm Password" />
-                    </div>
-                </div>
-                <input id="Upload" type="file" runat="server" /> <br />
-
-            </form>
-
-
-            <div class="form-group">
-                <button class="btn btn-info form-control" type="submit"onclick="Register()" ><i class="glyphicon glyphicon-registration-mark"></i> Submit</button>
             </div>
-            <div class="form-group">
-                <!-- <a style="float:left">Forget Password ? </a><a style="float:right;cursor:pointer" onclick="SignUp()"> Sign Up</a>-->
-                <p >Already Register?<a style="cursor:pointer" href="~/Login/Index">Login</a></p>
-
-            </div>
-
         </div>
     </div>
-</div>
+    <script>
 
-<script>
+        $("#message1").hide();
+        $("#message2").hide();
+    </script>
+</body>
+</html>
+<!--<script>
 
-    //Register System
-    $("#message2").hide();
     $("#message1").hide();
+    $("#message2").hide();
 
-    var Register = function () {
+    $("#btnregister").on('click', function (e)
+    {
+        e.preventDefault();
+
         var data = $("#Registration").serialize();
+        /* var data = {
+             details: {
+                 firstName: $('#txtfirstName').val(),
+                 lastName: $('#txtLastName').val(),
+                 userName: $('#txtUserName').val(),
+                 email: $('#txtEmail').val(),
+                 mobile: $('#txtMobile').val(),
+                 password: $('#txtPassword').val(),
+                 userType: $('#drpType option:selected').val(),
+             }
+         };*/
+
         $.ajax({
             type: "post",
             url: "/Register/AddUser",
             data: data,
+
+            //data: JSON.stringify(data),
+            //dataType: "json",
+            //contentType: "application/json; charset='utf-8'",
             success: function (result) {
                 //alert(result);
+
                 if (result == "User Details Inserted Successfully!") {
                     $("#Registration")[0].reset();
                     //window.location.href = "/Login/Index";
@@ -119,13 +160,112 @@
                     $("#message2").hide();
 
                 }
+                else if (result == "Duplicate") {
+                    $("#Registration")[0].reset();
+                    alert("Already Register Try with other users");
+
+                }
                 else {
-                  //  window.location.href = "/Login/Index";
+                    //  window.location.href = "/Login/Index";
                     $("#message1").hide();
                     $("#message2").show();
 
                 }
             }
-        })
-    }
-</script>
+        });
+    });
+</script>-->
+<!--<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<h2>Index</h2>
+
+@*@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container" style="margin-top:5%">
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 alert alert-info">
+
+                <h3 class="text-center">Registration</h3>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <form id="Registration">
+
+                    <div id="message1">
+                        <div class="alert alert-success">
+                            <span class="glyphicon glyphicon-align-right"></span><strong>Your Registration Is Completed Succefully!!!</strong>
+                        </div>
+                    </div>
+                    <div id="message2">
+                        <div class="alert alert-danger">
+                            <span class="glyphicon glyphicon-remove"></span><strong>Error Message! Your Registration Is Not Complete</strong>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.Editor("firstname", "FirstName", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.FirstName, "bvcnv", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.TextBox("lastname", "LastName", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            @Html.TextBox("email", "EmailId", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                            @Html.TextBox("mobile", "MobileNo", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            @Html.Password("password")
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            @Html.Password("conpassword")
+                            @Html.ValidationMessageFor(model => model.Avatar, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <input id="Upload" type="file" runat="server" /> <br />
+                    <div class="form-group">
+                        <button class="btn btn-info form-control" type="submit" onclick="Register()"><i class="glyphicon glyphicon-registration-mark"></i> Submit</button>
+                    </div>
+                    <div class="form-group">
+                        <!-- <a style="float:left">Forget Password ? </a><a style="float:right;cursor:pointer" onclick="SignUp()"> Sign Up</a>
+                        <p>Already Register?<a style="cursor:pointer" href="~/Login/Index">Login</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>-->
+}*@
+<!--
+<div>
+   @* @Html.ActionLink("Back to List", "Index")*@
+</div>
+-->
